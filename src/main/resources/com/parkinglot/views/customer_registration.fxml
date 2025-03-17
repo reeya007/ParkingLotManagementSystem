@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.ComboBox?>
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkinglot.controllers.CustomerRegistrationController">
+    <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
+        <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+        <Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Label text="Phone:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+        <Label text="Vehicle Number:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <TextField fx:id="vehicleNumberField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+        <Label text="Vehicle Type:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <ComboBox fx:id="vehicleTypeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+        <Button text="Register" onAction="#registerCustomer" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+    </GridPane>
+</VBox>
