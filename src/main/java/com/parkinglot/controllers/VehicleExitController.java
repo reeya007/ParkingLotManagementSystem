@@ -69,7 +69,7 @@ public class VehicleExitController {
             int durationMinutes = (int) duration.toMinutes();
             transaction.setDurationMinutes(durationMinutes);
 
-            double amount = calculateParkingFee(durationMinutes, vehicle.getVehicleTypeId()); // Implement fee calculation logic
+            double amount = transactionService.calculateParkingFee(durationMinutes, vehicle.getVehicleTypeId());
             transaction.setAmount(amount);
             transaction.setPaymentStatus("Completed");
 
@@ -84,19 +84,7 @@ public class VehicleExitController {
         }
     }
 
-    private double calculateParkingFee(int durationMinutes, int vehicleTypeId) throws SQLException {
-        VehicleTypeService vehicleTypeService = new VehicleTypeService();
-        VehicleType vehicleType = vehicleTypeService.getAllVehicleTypes().stream()
-                .filter(vt -> vt.getId() == vehicleTypeId)
-                .findFirst()
-                .orElse(null);
 
-        if (vehicleType == null) {
-            return 0.0; // Or handle the error appropriately
-        }
-
-        return (durationMinutes / 60.0) * vehicleType.getHourlyRate();
-    }
 
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
