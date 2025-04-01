@@ -9,7 +9,7 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <Label text="Welcome to Parking Lot Management System" />
+    <Label text="Hi, Welcome to Parking Lot Management System" />
     <VBox alignment="CENTER" spacing="10.0">
         <Button text="Login" onAction="#handleLogin" />
         <Button text="Register as Customer" onAction="#handleCustomerRegistration" />
