@@ -26,4 +26,5 @@
 
         <Button text="Register" onAction="#registerAdmin" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     </GridPane>
+    <Button text="Back" onAction="#handleBackButton" />
 </VBox>

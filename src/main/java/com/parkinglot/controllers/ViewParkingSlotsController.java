@@ -3,13 +3,10 @@ package com.parkinglot.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,7 +14,7 @@ import java.util.List;
 
 import com.parkinglot.models.ParkingSlot;
 import com.parkinglot.services.ParkingSlotService;
-import javafx.event.ActionEvent;
+import static com.parkinglot.utils.SceneManager.loadScene;
 
 public class ViewParkingSlotsController {
 
@@ -54,8 +51,11 @@ public class ViewParkingSlotsController {
         rowColumn.setCellValueFactory(new PropertyValueFactory<>("rowNum"));
         columnColumn.setCellValueFactory(new PropertyValueFactory<>("columnNum"));
         labelColumn.setCellValueFactory(new PropertyValueFactory<>("label"));
-        availableColumn.setCellValueFactory(new PropertyValueFactory<>("isAvailable"));
+        availableColumn.setCellValueFactory(new PropertyValueFactory<>("available"));
         vehicleTypeColumn.setCellValueFactory(new PropertyValueFactory<>("allowedVehicleTypeId"));
+
+        // Set the cell value factory to use the property itself.
+        availableColumn.setCellValueFactory(cellData -> cellData.getValue().isAvailableProperty());
 
         try {
             List<ParkingSlot> slotList = parkingSlotService.getAllParkingSlots();
@@ -69,15 +69,7 @@ public class ViewParkingSlotsController {
 
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
-        loadScene("admin_dashboard.fxml", "Admin Dashboard", event);
-    }
-
-    private void loadScene(String fxmlFile, String title, ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/parkinglot/views/" + fxmlFile));
-        Stage stage = (Stage) ((javafx.scene.Node) javafx.scene.control.Button.class.cast(event.getSource())).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle(title);
-        stage.setScene(scene);
-        stage.show();
+        String adminStylesheet = getClass().getResource("/com/parkinglot/styles/admin_dashboard.css").toExternalForm();
+        loadScene("admin_dashboard.fxml", "Admin Dashboard", event, adminStylesheet);
     }
 }

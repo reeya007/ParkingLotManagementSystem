@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VehicleDAOImpl implements VehicleDAO {
 
@@ -14,7 +16,7 @@ public class VehicleDAOImpl implements VehicleDAO {
     public void addVehicle(Vehicle vehicle) throws SQLException {
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "INSERT INTO Vehicles (user_id, license_plate, vehicle_type_id) VALUES (?, ?, ?)")) {
+                     "INSERT INTO Vehicles (user_id, vehicle_number, vehicle_type_id) VALUES (?, ?, ?)")) {
 
             preparedStatement.setInt(1, vehicle.getUserId());
             preparedStatement.setString(2, vehicle.getLicensePlate());
@@ -41,6 +43,22 @@ public class VehicleDAOImpl implements VehicleDAO {
                 );
             }
             return null;
+        }
+    }
+
+    @Override
+    public List<Vehicle> getVehiclesByUser(int userId) throws SQLException{
+        String sql = "SELECT * FROM Vehicles WHERE user_id = ?";
+        List<Vehicle> vehicles = new ArrayList<>();
+        try(Connection conn = DatabaseUtil.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, userId);
+            try(ResultSet rs = pstmt.executeQuery()){
+                while(rs.next()){
+                    vehicles.add(new Vehicle(rs.getInt("id"), rs.getInt("user_id"), rs.getString("vehicle_number"), rs.getInt("vehicle_type_id")));
+                }
+                return vehicles;
+            }
         }
     }
 }

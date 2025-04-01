@@ -4,18 +4,22 @@ import com.parkinglot.models.Vehicle;
 import com.parkinglot.models.VehicleType;
 import com.parkinglot.services.VehicleService;
 import com.parkinglot.services.VehicleTypeService;
+import com.parkinglot.utils.SceneManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.parkinglot.models.User;
 import com.parkinglot.services.UserService;
@@ -35,18 +39,21 @@ public class CustomerRegistrationController {
     @FXML
     private TextField vehicleNumberField;
     @FXML
-    private ComboBox<VehicleType> vehicleTypeComboBox;
+    private ComboBox<String> vehicleTypeComboBox;
 
     private final UserService userService = new UserService();
     private final VehicleService vehicleService = new VehicleService();
     private final VehicleTypeService vehicleTypeService = new VehicleTypeService();
+    private List<VehicleType> vehicleTypesList; // To store vehicleTypes list
 
     @FXML
     public void initialize() {
         try {
-            List<VehicleType> vehicleTypes = vehicleTypeService.getAllVehicleTypes();
-            ObservableList<VehicleType> observableVehicleTypes = FXCollections.observableArrayList(vehicleTypes);
-            vehicleTypeComboBox.setItems(observableVehicleTypes);
+            vehicleTypesList = vehicleTypeService.getAllVehicleTypes(); // Store the list
+            ObservableList<String> vehicleTypeNames = FXCollections.observableArrayList(
+                    vehicleTypesList.stream().map(VehicleType::getTypeName).collect(Collectors.toList())
+            );
+            vehicleTypeComboBox.setItems(vehicleTypeNames);
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load vehicle types.");
@@ -75,9 +82,8 @@ public class CustomerRegistrationController {
         user.setRoleId(2); // 2 is the role_id for Customer
 
         try {
-            userService.registerUser(user);
+            user = userService.registerUser(user);
             showAlert(Alert.AlertType.INFORMATION, "Success", "Customer registered successfully.");
-            clearFields();
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Registration failed: " + e.getMessage());
             e.printStackTrace();
@@ -88,22 +94,33 @@ public class CustomerRegistrationController {
 
     private void registerVehicle(User user) {
         String vehicleNumber = vehicleNumberField.getText();
-        VehicleType selectedVehicleType = vehicleTypeComboBox.getValue();
+        String selectedVehicleTypeName = vehicleTypeComboBox.getValue();
 
-        if (vehicleNumber.isEmpty() || selectedVehicleType == null) {
+        if (vehicleNumber.isEmpty() || selectedVehicleTypeName == null) {
             showAlert(Alert.AlertType.ERROR, "Error", "Please enter vehicle number and select vehicle type.");
+            return;
+        }
+
+        // Find the VehicleType object from the selected name
+        VehicleType selectedVehicleType = vehicleTypesList.stream()
+                .filter(vt -> vt.getTypeName().equals(selectedVehicleTypeName))
+                .findFirst()
+                .orElse(null);
+
+        if (selectedVehicleType == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Selected vehicle type not found.");
             return;
         }
 
         try {
             Vehicle vehicle = new Vehicle();
-            vehicle.setUserId(user.getId()); // Assuming you set the user ID after adding to the database
+            vehicle.setUserId(user.getId());
             vehicle.setLicensePlate(vehicleNumber);
             vehicle.setVehicleTypeId(selectedVehicleType.getId());
 
             vehicleService.addVehicle(vehicle);
 
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Customer and vehicle registered successfully.");
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Vehicle registered successfully.");
             clearFields();
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Registration failed: " + e.getMessage());
@@ -125,6 +142,8 @@ public class CustomerRegistrationController {
         phoneField.clear();
         emailField.clear();
         passwordField.clear();
+        vehicleNumberField.clear();
+        vehicleTypeComboBox.setValue(null);
     }
 
     private String hashPassword(String password) {
@@ -148,5 +167,11 @@ public class CustomerRegistrationController {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    @FXML
+    public void handleBackButton(ActionEvent event) throws IOException {
+        String stylesheet = getClass().getResource("/com/parkinglot/styles/login.css").toExternalForm();
+        SceneManager.loadScene("welcome.fxml", "Home Page", event, stylesheet);
     }
 }

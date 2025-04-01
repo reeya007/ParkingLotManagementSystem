@@ -1,0 +1,47 @@
+/* login.css */
+
+VBox {
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+    -fx-padding: 20px;
+    -fx-background-color: #f0f8ff; /* Light Alice Blue background */
+}
+
+GridPane {
+    -fx-alignment: center;
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+    -fx-padding: 10px;
+}
+
+Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333; /* Dark gray text */
+}
+
+TextField, PasswordField {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-padding: 8px;
+    -fx-background-radius: 3px;
+    -fx-pref-width: 250px;
+}
+
+TextField:focused, PasswordField:focused {
+    -fx-border-color: #4682b4; /* Steel Blue border on focus */
+}
+
+Button {
+    -fx-background-color: #4682b4; /* Steel Blue button color */
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+Button:hover {
+    -fx-background-color: #2e638b; /* Darker Steel Blue on hover */
+}

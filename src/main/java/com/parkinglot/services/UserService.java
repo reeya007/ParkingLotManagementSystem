@@ -10,8 +10,9 @@ import java.util.List;
 public class UserService {
     private final UserDAO userDAO = new UserDAOImpl();
 
-    public void registerUser(User user) throws SQLException {
+    public User registerUser(User user) throws SQLException {
         userDAO.addUser(user);
+      return userDAO.getUserByEmail(user.getEmail());
     }
 
     public User getUserByEmail(String email) throws SQLException {

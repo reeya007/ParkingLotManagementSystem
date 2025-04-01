@@ -1,10 +1,13 @@
 package com.parkinglot.controllers;
 
+import com.parkinglot.utils.SceneManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -56,7 +59,7 @@ public class AdminRegistrationController {
         user.setRoleId(1); // 1 is the role_id for Admin
 
         try {
-            userService.registerUser(user);
+            user = userService.registerUser(user);
             showAlert(Alert.AlertType.INFORMATION, "Success", "Admin registered successfully.");
             clearFields();
         } catch (SQLException e) {
@@ -102,5 +105,11 @@ public class AdminRegistrationController {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    @FXML
+    public void handleBackButton(ActionEvent event) throws IOException {
+        String superAdminStylesheet = getClass().getResource("/com/parkinglot/styles/super_admin_dashboard.css").toExternalForm();
+        SceneManager.loadScene("super_admin_dashboard.fxml", "Super Admin Dashboard", event, superAdminStylesheet);
     }
 }

@@ -2,6 +2,7 @@ package com.parkinglot.controllers;
 
 import com.parkinglot.models.VehicleType;
 import com.parkinglot.services.VehicleTypeService;
+import com.parkinglot.utils.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,7 +57,8 @@ public class AddVehicleTypeController {
 
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
-        loadScene("super_admin_dashboard.fxml", "Super Admin Dashboard", event);
+        String stylesheet = getClass().getResource("/com/parkinglot/styles/super_admin_dashboard.css").toExternalForm();
+        SceneManager.loadScene("super_admin_dashboard.fxml", "Super Admin Dashboard", event,stylesheet);
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
@@ -67,12 +69,4 @@ public class AddVehicleTypeController {
         alert.showAndWait();
     }
 
-    private void loadScene(String fxmlFile, String title, ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/parkinglot/views/" + fxmlFile));
-        Stage stage = (Stage) ((javafx.scene.Node) javafx.scene.control.Button.class.cast(event.getSource())).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle(title);
-        stage.setScene(scene);
-        stage.show();
-    }
 }

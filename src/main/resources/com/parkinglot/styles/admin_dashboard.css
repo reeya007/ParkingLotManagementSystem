@@ -1,0 +1,22 @@
+/* admin_dashboard.css */
+
+VBox {
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+    -fx-padding: 20px;
+    -fx-background-color: #f0f8ff; /* Light Alice Blue background */
+}
+
+Button {
+    -fx-background-color: #4682b4; /* Steel Blue button color */
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+Button:hover {
+    -fx-background-color: #2e638b; /* Darker Steel Blue on hover */
+}

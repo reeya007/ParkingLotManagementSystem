@@ -1,13 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkinglot.controllers.WelcomeController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-    <Label text="Welcome to Customer Dash" />
+<ScrollPane fitToWidth="true" fitToHeight="true" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.parkinglot.controllers.CustomerDashboardController">
+    <content>
+        <VBox alignment="CENTER" prefWidth="800.0" spacing="20.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
 
-</VBox>
+            <Label text="Customer Dashboard" styleClass="section-header" />
+
+            <VBox alignment="CENTER" spacing="10.0">
+
+                <Label text="Transaction History" styleClass="section-subheader" />
+                <TableView fx:id="transactionsTable" prefHeight="200.0">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="ID" />
+                        <TableColumn fx:id="entryTimeColumn" text="Entry Time" />
+                        <TableColumn fx:id="exitTimeColumn" text="Exit Time" />
+                        <TableColumn fx:id="durationColumn" text="Duration (Minutes)" />
+                        <TableColumn fx:id="amountColumn" text="Amount" />
+                        <TableColumn fx:id="statusColumn" text="Payment Status" />
+                    </columns>
+                </TableView>
+
+                <Label text="Advance Booking" styleClass="section-subheader" />
+                <GridPane hgap="10" vgap="10">
+                    <Label text="Booking Date:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <DatePicker fx:id="bookingDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Label text="Booking Time:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="bookingTimeField" promptText="HH:MM:SS" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label text="Vehicle:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <ComboBox fx:id="bookingVehicleComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label text="Available Slots:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <ComboBox fx:id="availableSlotsComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <Button text="Book Slot" onAction="#handleBookSlot" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                </GridPane>
+
+                <Label text="Assigned Slot" styleClass="section-subheader" />
+                <Label fx:id="assignedSlotLabel" text="No assigned slot." />
+
+                <Label text="Vehicle Information" styleClass="section-subheader" />
+                <TableView fx:id="vehiclesTable" prefHeight="200.0">
+                    <columns>
+                        <TableColumn fx:id="licensePlateColumn" text="License Plate" />
+                        <TableColumn fx:id="vehicleTypeIdColumn" text="Vehicle Type" />
+                    </columns>
+                </TableView>
+
+                <Label text="Update Profile" styleClass="section-subheader" />
+                <GridPane hgap="10" vgap="10">
+                    <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label text="Phone:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                </GridPane>
+
+                <Button text="Logout" onAction="#handleLogout" />
+                <Button text="Back" onAction="#handleBackButton"/>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

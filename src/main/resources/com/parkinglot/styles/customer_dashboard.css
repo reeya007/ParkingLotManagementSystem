@@ -1,0 +1,92 @@
+/* customer_dashboard.css */
+
+.scroll-pane {
+    -fx-background-color: #f0f8ff; /* Light Alice Blue background */
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent; /* Make viewport transparent */
+}
+
+VBox {
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+    -fx-padding: 20px;
+}
+
+Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333; /* Dark gray text */
+}
+
+.Label.section-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.Label.section-subheader {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0 5px 0;
+}
+
+Button {
+    -fx-background-color: #4682b4; /* Steel Blue button color */
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+Button:hover {
+    -fx-background-color: #2e638b; /* Darker Steel Blue on hover */
+}
+
+TableView {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-pref-height: 200px;
+    -fx-pref-width: 100%;
+}
+
+TableView .column-header {
+    -fx-background-color: #d3e0ea; /* Light blue header */
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+}
+
+TableView .table-cell {
+    -fx-alignment: center;
+    -fx-padding: 8px;
+}
+
+TableView .table-row-cell:even {
+    -fx-background-color: #f9f9f9; /* Light gray for even rows */
+}
+
+TableView .table-row-cell:odd {
+    -fx-background-color: white; /* White for odd rows */
+}
+
+GridPane {
+    -fx-padding: 10px;
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+    -fx-pref-width: 100%;
+}
+
+TextField, ComboBox, DatePicker {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-padding: 8px;
+    -fx-background-radius: 3px;
+    -fx-pref-width: 100%;
+}
+
+TextField:focused, ComboBox:focused, DatePicker:focused {
+    -fx-border-color: #4682b4; /* Steel Blue border on focus */
+}

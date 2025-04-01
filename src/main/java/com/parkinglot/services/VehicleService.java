@@ -5,6 +5,7 @@ import com.parkinglot.dao.VehicleDAOImpl;
 import com.parkinglot.models.Vehicle;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class VehicleService {
     private final VehicleDAO vehicleDAO = new VehicleDAOImpl();
@@ -15,5 +16,9 @@ public class VehicleService {
 
     public Vehicle getVehicleByLicensePlate(String licensePlate) throws SQLException {
         return vehicleDAO.getVehicleByLicensePlate(licensePlate);
+    }
+
+    public List<Vehicle> getVehiclesByUser(int userId) throws SQLException{
+        return vehicleDAO.getVehiclesByUser(userId);
     }
 }

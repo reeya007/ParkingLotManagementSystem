@@ -14,6 +14,11 @@ public class MainApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Parking Lot Management System");
         stage.setScene(scene);
+        stage.setMaximized(true);
+
+        String stylesheet = getClass().getResource("/com/parkinglot/styles/welcome.css").toExternalForm();
+        scene.getStylesheets().add(stylesheet);
+
         stage.show();
     }
 

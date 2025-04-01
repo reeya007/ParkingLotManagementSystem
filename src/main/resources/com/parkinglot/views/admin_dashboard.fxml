@@ -10,9 +10,10 @@
     </padding>
     <VBox alignment="CENTER" spacing="10.0">
         <Button text="View Parking Slots" onAction="#handleViewSlots" />
-        <Button text="Manage Parking Slots" onAction="#handleManageSlots" />
+<!--        <Button text="Manage Parking Slots" onAction="#handleManageSlots" />-->
         <Button text="Monitor Transactions" onAction="#handleMonitorTransactions" />
         <Button text="Vehicle Entry" onAction="#handleVehicleEntry" />
         <Button text="Vehicle Exit" onAction="#handleVehicleExit" />
     </VBox>
+    <Button text="Back" onAction="#handleBackButton" />
 </VBox>

@@ -6,8 +6,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.ComboBox?>
+
 <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkinglot.controllers.CustomerRegistrationController">
     <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
         <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -31,6 +31,6 @@
         <Label text="Vehicle Type:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <ComboBox fx:id="vehicleTypeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-        <Button text="Register" onAction="#registerCustomer" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-    </GridPane>
+        <Button text="Register" onAction="#registerCustomer" GridPane.columnIndex="1" GridPane.rowIndex="7" /> </GridPane>
+    <Button text="Back" onAction="#handleBackButton" />
 </VBox>

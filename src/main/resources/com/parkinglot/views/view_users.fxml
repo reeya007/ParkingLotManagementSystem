@@ -4,8 +4,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Button?>
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkinglot.controllers.ViewUsersController">
-    <TableView fx:id="usersTable" prefHeight="400.0" prefWidth="600.0">
+    <TableView fx:id="usersTable" prefHeight="600.0" prefWidth="800.0">
         <columns>
             <TableColumn fx:id="idColumn" text="ID" />
             <TableColumn fx:id="nameColumn" text="Name" />
@@ -13,4 +14,5 @@
             <TableColumn fx:id="roleColumn" text="Role" />
         </columns>
     </TableView>
+    <Button text="Back" onAction="#handleBackButton" />
 </VBox>

@@ -41,7 +41,7 @@ public class ParkingSlotDAOImpl implements ParkingSlotDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "UPDATE ParkingSlots SET is_available = ? WHERE id = ?")) {
 
-            preparedStatement.setBoolean(1, slot.isAvailable());
+            preparedStatement.setBoolean(1, slot.isIsAvailable()); // Corrected to use isIsAvailable()
             preparedStatement.setInt(2, slot.getId());
             preparedStatement.executeUpdate();
         }
@@ -82,7 +82,7 @@ public class ParkingSlotDAOImpl implements ParkingSlotDAO {
                 preparedStatement.setString(2, slot.getRowNum());
                 preparedStatement.setInt(3, slot.getColumnNum());
                 preparedStatement.setString(4, slot.getLabel());
-                preparedStatement.setBoolean(5, slot.isAvailable());
+                preparedStatement.setBoolean(5, slot.isIsAvailable());
                 preparedStatement.setInt(6, slot.getAllowedVehicleTypeId());
                 preparedStatement.addBatch();
             }

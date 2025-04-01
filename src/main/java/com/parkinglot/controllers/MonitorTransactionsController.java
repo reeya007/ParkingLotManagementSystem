@@ -20,6 +20,8 @@ import com.parkinglot.models.Transaction;
 import com.parkinglot.services.TransactionService;
 import javafx.event.ActionEvent;
 
+import static com.parkinglot.utils.SceneManager.loadScene;
+
 public class MonitorTransactionsController {
 
     @FXML
@@ -78,15 +80,8 @@ public class MonitorTransactionsController {
 
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
-        loadScene("admin_dashboard.fxml", "Admin Dashboard", event);
+        String adminStylesheet= getClass().getResource("/com/parkinglot/styles/admin_dashboard.css").toExternalForm();
+        loadScene("admin_dashboard.fxml", "Admin Dashboard", event, adminStylesheet);
     }
 
-    private void loadScene(String fxmlFile, String title, ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/parkinglot/views/" + fxmlFile));
-        Stage stage = (Stage) ((javafx.scene.Node) javafx.scene.control.Button.class.cast(event.getSource())).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle(title);
-        stage.setScene(scene);
-        stage.show();
-    }
 }

@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.parkinglot.utils.SceneManager;
+
 public class AddParkingSlotController {
 
     @FXML
@@ -78,7 +80,8 @@ public class AddParkingSlotController {
 
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
-        loadScene("super_admin_dashboard.fxml", "Super Admin Dashboard", event);
+        String superAdminStylesheet = getClass().getResource("/com/parkinglot/styles/super_admin_dashboard.css").toExternalForm();
+        SceneManager.loadScene("super_admin_dashboard.fxml", "Super Admin Dashboard", event, superAdminStylesheet);
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
@@ -96,12 +99,4 @@ public class AddParkingSlotController {
         vehicleTypeComboBox.setValue(null);
     }
 
-    private void loadScene(String fxmlFile, String title, ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/parkinglot/views/" + fxmlFile));
-        Stage stage = (Stage) ((javafx.scene.Node) javafx.scene.control.Button.class.cast(event.getSource())).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle(title);
-        stage.setScene(scene);
-        stage.show();
-    }
 }

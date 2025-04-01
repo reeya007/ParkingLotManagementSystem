@@ -42,6 +42,10 @@ public class TransactionService {
             return 0.0;
         }
 
+        if (durationMinutes <= 60) {
+            return vehicleType.getHourlyRate();
+        }
+
         return (durationMinutes / 60.0) * vehicleType.getHourlyRate();
     }
 }

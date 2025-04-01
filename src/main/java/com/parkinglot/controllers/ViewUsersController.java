@@ -1,12 +1,15 @@
 package com.parkinglot.controllers;
 
+import com.parkinglot.utils.SceneManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -47,5 +50,11 @@ public class ViewUsersController {
             e.printStackTrace();
             // Handle the exception (e.g., show an alert)
         }
+    }
+
+    @FXML
+    public void handleBackButton(ActionEvent event) throws IOException {
+        String stylesheet = getClass().getResource("/com/parkinglot/styles/super_admin_dashboard.css").toExternalForm();
+        SceneManager.loadScene("super_admin_dashboard.fxml", "Super Admin Dashboard", event, stylesheet);
     }
 }
