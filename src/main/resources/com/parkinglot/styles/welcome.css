@@ -5,6 +5,7 @@ VBox {
     -fx-spacing: 20px;
     -fx-padding: 20px;
     -fx-background-color: #f0f8ff; /* Light Alice Blue background */
+    -fx-background-image: url("../images/welcome-bg.png");
 }
 
 Label {

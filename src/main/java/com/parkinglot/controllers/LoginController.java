@@ -59,8 +59,8 @@ public class LoginController {
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] encodedhash = digest.digest(password.getBytes());
-            return bytesToHex(encodedhash);
+            byte[] encodedHash = digest.digest(password.getBytes());
+            return bytesToHex(encodedHash);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
@@ -86,12 +86,15 @@ public class LoginController {
         switch (user.getRoleId()) {
             case 1: // Admin
                 loader = new FXMLLoader(getClass().getResource("/com/parkinglot/views/admin_dashboard.fxml"));
+                stage.setTitle("Admin Dashboard");
                 break;
             case 2: // Customer
                 loader = new FXMLLoader(getClass().getResource("/com/parkinglot/views/customer_dashboard.fxml"));
+                stage.setTitle("Customer Dashboard");
                 break;
             case 3: // Super Admin
                 loader = new FXMLLoader(getClass().getResource("/com/parkinglot/views/super_admin_dashboard.fxml"));
+                stage.setTitle("Super Admin Dashboard");
                 break;
             default:
                 showAlert(Alert.AlertType.ERROR, "Error", "Invalid role ID.");
@@ -107,20 +110,18 @@ public class LoginController {
 
         String customerStylesheet = getClass().getResource("/com/parkinglot/styles/customer_dashboard.css").toExternalForm();
         String superAdminStylesheet = getClass().getResource("/com/parkinglot/styles/super_admin_dashboard.css").toExternalForm();
-        String adminStylesheet= getClass().getResource("/com/parkinglot/styles/admin_dashboard.css").toExternalForm();
+        String adminStylesheet = getClass().getResource("/com/parkinglot/styles/admin_dashboard.css").toExternalForm();
 
         Scene scene = new Scene(root);
-        if(user.getRoleId() == 2){
+        if (user.getRoleId() == 2) {
             scene.getStylesheets().add(customerStylesheet);
-        }
-        else if(user.getRoleId() == 3){
+        } else if (user.getRoleId() == 3) {
             scene.getStylesheets().add(superAdminStylesheet);
-        }
-        else {
+        } else {
             scene.getStylesheets().add(adminStylesheet);
         }
         stage.setScene(scene);
-        stage.setMaximized(true);
+//        stage.setMaximized(true);
         stage.show();
     }
 
@@ -135,6 +136,6 @@ public class LoginController {
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
         String stylesheet = getClass().getResource("/com/parkinglot/styles/welcome.css").toExternalForm();
-        SceneManager.loadScene("welcome.fxml", "Home Page", event, stylesheet);
+        SceneManager.loadScene("welcome.fxml", "Parking Lot Management System", event, stylesheet);
     }
 }

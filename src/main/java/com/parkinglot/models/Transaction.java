@@ -28,6 +28,9 @@ public class Transaction {
         this.paymentStatus = paymentStatus;
     }
 
+    public Transaction(int i, String s, String s1, int i1, double v, String completed) {
+    }
+
     // Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

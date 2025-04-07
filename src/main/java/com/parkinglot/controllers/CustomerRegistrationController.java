@@ -172,6 +172,6 @@ public class CustomerRegistrationController {
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
         String stylesheet = getClass().getResource("/com/parkinglot/styles/login.css").toExternalForm();
-        SceneManager.loadScene("welcome.fxml", "Home Page", event, stylesheet);
+        SceneManager.loadScene("welcome.fxml", "Parking Lot Management System", event, stylesheet);
     }
 }

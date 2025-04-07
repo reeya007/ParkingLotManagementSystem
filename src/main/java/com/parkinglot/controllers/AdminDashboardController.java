@@ -43,6 +43,6 @@ public class AdminDashboardController {
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
         String adminStylesheet= getClass().getResource("/com/parkinglot/styles/welcome.css").toExternalForm();
-        SceneManager.loadScene("welcome.fxml", "Home Page", event, adminStylesheet);
+        SceneManager.loadScene("welcome.fxml", "Parking Lot Management System", event, adminStylesheet);
     }
 }

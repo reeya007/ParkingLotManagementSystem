@@ -11,10 +11,9 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("views/welcome.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setTitle("Parking Lot Management System");
         stage.setScene(scene);
-        stage.setMaximized(true);
 
         String stylesheet = getClass().getResource("/com/parkinglot/styles/welcome.css").toExternalForm();
         scene.getStylesheets().add(stylesheet);

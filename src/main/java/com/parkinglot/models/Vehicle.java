@@ -16,6 +16,9 @@ public class Vehicle {
         this.vehicleTypeId = vehicleTypeId;
     }
 
+    public Vehicle(String number, String motorcycle) {
+    }
+
     // Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

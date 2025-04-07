@@ -39,6 +39,6 @@ public class SuperAdminDashboardController {
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
         String stylesheet = getClass().getResource("/com/parkinglot/styles/login.css").toExternalForm();
-        SceneManager.loadScene("login.fxml", "Home Page", event, stylesheet);
+        SceneManager.loadScene("login.fxml", "Parking Lot Management Systems", event, stylesheet);
     }
 }

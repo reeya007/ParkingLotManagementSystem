@@ -78,4 +78,8 @@ public class UserDAOImpl implements UserDAO {
         return users;
     }
 
+    @Override
+    public void updateUser(User user) throws SQLException {
+
+    }
 }

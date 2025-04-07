@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" spacing="10" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.parkinglot.controllers.BookingFormController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <Label text="Advance Booking" styleClass="section-subheader"/>
+    <GridPane hgap="10" vgap="10">
+        <Label text="Booking Date:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <DatePicker fx:id="bookingDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="Booking Time:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="bookingTimeField" promptText="HH:MM:SS" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Vehicle:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="bookingVehicleComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="Available Slots:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <ComboBox fx:id="availableSlotsComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Button text="Book Slot" onAction="#handleBookSlot" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    </GridPane>
+    <Button text="Back" onAction="#handleBackButton"/>
+</VBox>

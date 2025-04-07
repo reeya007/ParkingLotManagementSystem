@@ -1,37 +1,58 @@
-/* customer_dashboard.css */
-
-.scroll-pane {
-    -fx-background-color: #f0f8ff; /* Light Alice Blue background */
+/* General Layouts */
+VBox, HBox, BorderPane {
+    -fx-background-color: #f0f8ff; /* Light Alice Blue */
 }
 
-.scroll-pane > .viewport {
-    -fx-background-color: transparent; /* Make viewport transparent */
-}
-
-VBox {
-    -fx-alignment: center;
-    -fx-spacing: 20px;
+/* Paddings and Spacing */
+VBox, HBox {
+    -fx-spacing: 15px;
     -fx-padding: 20px;
 }
 
-Label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #333; /* Dark gray text */
+/* GridPane Layout */
+GridPane {
+    -fx-alignment: center;
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+    -fx-padding: 10px;
 }
 
-.Label.section-header {
+/* Section Headers */
+.section-header {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2e638b;
+}
+
+.section-subheader {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
+    -fx-text-fill: #4682b4;
 }
 
-.Label.section-subheader {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-padding: 10px 0 5px 0;
+/* Labels */
+Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
 }
 
+/* Inputs */
+TextField, PasswordField, ComboBox, DatePicker {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-padding: 8px;
+    -fx-background-radius: 3px;
+    -fx-pref-width: 250px;
+}
+
+TextField:focused, PasswordField:focused, ComboBox:focused, DatePicker:focused {
+    -fx-border-color: #4682b4;
+}
+
+/* Buttons */
 Button {
-    -fx-background-color: #4682b4; /* Steel Blue button color */
+    -fx-background-color: #4682b4;
     -fx-text-fill: white;
     -fx-padding: 10px 20px;
     -fx-font-size: 14px;
@@ -41,52 +62,36 @@ Button {
 }
 
 Button:hover {
-    -fx-background-color: #2e638b; /* Darker Steel Blue on hover */
+    -fx-background-color: #2e638b;
 }
 
+/* Table Styles */
 TableView {
+    -fx-pref-height: 400px;
     -fx-background-color: white;
     -fx-border-color: #ccc;
     -fx-border-width: 1px;
-    -fx-pref-height: 200px;
-    -fx-pref-width: 100%;
-}
-
-TableView .column-header {
-    -fx-background-color: #d3e0ea; /* Light blue header */
-    -fx-text-fill: #333;
-    -fx-font-weight: bold;
-}
-
-TableView .table-cell {
-    -fx-alignment: center;
-    -fx-padding: 8px;
-}
-
-TableView .table-row-cell:even {
-    -fx-background-color: #f9f9f9; /* Light gray for even rows */
-}
-
-TableView .table-row-cell:odd {
-    -fx-background-color: white; /* White for odd rows */
-}
-
-GridPane {
     -fx-padding: 10px;
-    -fx-hgap: 10px;
-    -fx-vgap: 10px;
-    -fx-pref-width: 100%;
 }
 
-TextField, ComboBox, DatePicker {
-    -fx-background-color: white;
-    -fx-border-color: #ccc;
-    -fx-border-width: 1px;
-    -fx-padding: 8px;
-    -fx-background-radius: 3px;
-    -fx-pref-width: 100%;
+.table-column {
+    -fx-alignment: CENTER;
 }
 
-TextField:focused, ComboBox:focused, DatePicker:focused {
-    -fx-border-color: #4682b4; /* Steel Blue border on focus */
+.table-row-cell {
+    -fx-padding: 5px;
+}
+
+/* Scrollable Content */
+.scrollable-content {
+    -fx-pref-height: 100%;
+    -fx-max-height: Infinity;
+    -fx-overflow: auto;
+}
+
+/* Header/Footer Panes */
+.header-pane, .footer-pane {
+    -fx-background-color: #dbeeff;
+    -fx-padding: 10px 20px;
+    -fx-spacing: 10px;
 }
