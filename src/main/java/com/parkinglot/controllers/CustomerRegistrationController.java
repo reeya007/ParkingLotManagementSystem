@@ -4,6 +4,7 @@ import com.parkinglot.models.Vehicle;
 import com.parkinglot.models.VehicleType;
 import com.parkinglot.services.VehicleService;
 import com.parkinglot.services.VehicleTypeService;
+import com.parkinglot.utils.AlertUtil;
 import com.parkinglot.utils.SceneManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -129,11 +130,7 @@ public class CustomerRegistrationController {
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+        AlertUtil.showAlert(alertType, title, content);
     }
 
     private void clearFields() {

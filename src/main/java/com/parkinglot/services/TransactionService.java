@@ -48,4 +48,12 @@ public class TransactionService {
 
         return (durationMinutes / 60.0) * vehicleType.getHourlyRate();
     }
+
+    public boolean hasPendingTransaction(int userId, int vehicleId) throws SQLException {
+        return transactionDAO.hasPendingTransaction(userId, vehicleId);
+    }
+
+    public boolean hasPendingTransactionForVehicle(int vehicleId) throws SQLException {
+        return transactionDAO.hasPendingTransactionForVehicle(vehicleId);
+    }
 }

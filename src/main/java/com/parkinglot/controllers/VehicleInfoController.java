@@ -5,11 +5,13 @@ import com.parkinglot.models.Vehicle;
 import com.parkinglot.models.VehicleType;
 import com.parkinglot.services.VehicleService;
 import com.parkinglot.services.VehicleTypeService;
+import com.parkinglot.utils.AlertUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -61,7 +63,7 @@ public class VehicleInfoController implements UserAwareController {
                 vehiclesTable.setItems(vehicleList);
             } catch (SQLException e) {
                 e.printStackTrace();
-                // Handle SQL error
+                AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", "Error getting Vehicles Info");
             }
         }
     }

@@ -14,7 +14,7 @@
             <TableColumn fx:id="columnColumn" text="Column" />
             <TableColumn fx:id="labelColumn" text="Label" />
             <TableColumn fx:id="availableColumn" text="Available" />
-            <TableColumn fx:id="vehicleTypeColumn" text="Vehicle Type ID" />
+            <TableColumn fx:id="vehicleTypeColumn" text="Vehicle Type" />
         </columns>
     </TableView>
     <Button text="Back" onAction="#handleBackButton" />

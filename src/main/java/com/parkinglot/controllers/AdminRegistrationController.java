@@ -1,5 +1,6 @@
 package com.parkinglot.controllers;
 
+import com.parkinglot.utils.AlertUtil;
 import com.parkinglot.utils.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,11 +70,7 @@ public class AdminRegistrationController {
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+        AlertUtil.showAlert(alertType, title, content);
     }
 
     private void clearFields() {

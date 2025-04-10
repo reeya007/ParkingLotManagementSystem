@@ -8,6 +8,7 @@ import com.parkinglot.services.ParkingSlotService;
 import com.parkinglot.services.TransactionService;
 import com.parkinglot.services.VehicleService;
 import com.parkinglot.services.VehicleTypeService;
+import com.parkinglot.utils.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -95,11 +96,7 @@ public class VehicleExitController {
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+        AlertUtil.showAlert(alertType, title, content);
     }
 
 }

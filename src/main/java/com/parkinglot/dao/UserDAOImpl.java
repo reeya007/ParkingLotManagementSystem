@@ -80,6 +80,46 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void updateUser(User user) throws SQLException {
+        String sql = "UPDATE Users SET name = ?, address = ?, phone_number = ? WHERE id = ?";
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getAddress());
+            preparedStatement.setString(3, user.getPhoneNumber());
+            preparedStatement.setInt(4, user.getId());
 
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Updating user failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error updating user: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public User getUserById(int id) throws SQLException {
+        User user = null;
+        String sql = "SELECT id, name, address, phone_number, email, password_hash, role_id, assigned_slot_id FROM Users WHERE id = ?";
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User();
+                    user.setId(resultSet.getInt("id"));
+                    user.setName(resultSet.getString("name"));
+                    user.setAddress(resultSet.getString("address"));
+                    user.setPhoneNumber(resultSet.getString("phone_number"));
+                    user.setEmail(resultSet.getString("email"));
+                    user.setPasswordHash(resultSet.getString("password_hash"));
+                    user.setRoleId(resultSet.getInt("role_id"));
+                    user.setAssignedSlotId((Integer) resultSet.getObject("assigned_slot_id")); // Handle nullable Integer
+                }
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error getting user by ID: " + e.getMessage(), e);
+        }
+        return user;
     }
 }

@@ -26,4 +26,8 @@ public class UserService {
     public void updateUser(User user) throws SQLException {
         userDAO.updateUser(user);
     }
+
+    public User getUserById(int userId) throws SQLException {
+      return  userDAO.getUserById(userId);
+    }
 }

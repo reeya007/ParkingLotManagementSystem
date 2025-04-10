@@ -2,8 +2,10 @@ package com.parkinglot.controllers;
 
 import com.parkinglot.models.User;
 import com.parkinglot.services.UserService;
+import com.parkinglot.utils.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -34,11 +36,18 @@ public class UpdateProfileController  implements UserAwareController {
     @FXML
     public void handleUpdateProfile(ActionEvent event) throws SQLException {
         if (nameField != null && addressField != null && phoneField != null && currentUser != null) {
+          try {
             currentUser.setName(nameField.getText());
             currentUser.setAddress(addressField.getText());
             currentUser.setPhoneNumber(phoneField.getText());
             userService.updateUser(currentUser);
-            // Optionally provide feedback
+            AlertUtil.showAlert(Alert.AlertType.INFORMATION, "Success", "Profile Updated");
+          } catch (SQLException e) {
+              e.printStackTrace();
+              AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", "Error while updating Profile");
+          }
+        } else {
+            AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", "Please fill all the fields");
         }
     }
 

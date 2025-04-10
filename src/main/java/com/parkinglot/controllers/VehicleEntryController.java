@@ -2,19 +2,17 @@ package com.parkinglot.controllers;
 
 import com.parkinglot.models.ParkingSlot;
 import com.parkinglot.models.Transaction;
+import com.parkinglot.models.User;
 import com.parkinglot.models.Vehicle;
 import com.parkinglot.services.ParkingSlotService;
 import com.parkinglot.services.TransactionService;
 import com.parkinglot.services.UserService;
 import com.parkinglot.services.VehicleService;
+import com.parkinglot.utils.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -44,6 +42,14 @@ public class VehicleEntryController {
                 return;
             }
 
+            // Check if there's already a pending transaction for this vehicle
+            boolean hasPendingEntry = transactionService.hasPendingTransactionForVehicle(vehicle.getId());
+            if (hasPendingEntry) {
+                showAlert(Alert.AlertType.WARNING, "Warning", "This vehicle already has a pending entry.");
+                licensePlateField.clear();
+                return; // Do nothing if there's a pending entry
+            }
+
             List<ParkingSlot> availableSlots = parkingSlotService.getAllParkingSlots().stream()
                     .filter(ParkingSlot::isIsAvailable)
                     .filter(slot -> slot.getAllowedVehicleTypeId() == vehicle.getVehicleTypeId())
@@ -67,6 +73,13 @@ public class VehicleEntryController {
 
             transactionService.addTransaction(transaction);
 
+            // Update the user's assignedSlotId
+            User user = userService.getUserById(vehicle.getUserId());
+            if (user != null) {
+                user.setAssignedSlotId(assignedSlot.getId());
+                userService.updateUser(user);
+            }
+
             showAlert(Alert.AlertType.INFORMATION, "Success", "Vehicle entered successfully. Assigned slot: " + assignedSlot.getLabel());
             licensePlateField.clear();
 
@@ -83,11 +96,7 @@ public class VehicleEntryController {
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+        AlertUtil.showAlert(alertType, title, content);
     }
 
 }

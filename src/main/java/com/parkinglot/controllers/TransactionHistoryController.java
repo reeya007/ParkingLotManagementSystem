@@ -3,7 +3,9 @@ package com.parkinglot.controllers;
 import com.parkinglot.models.Transaction;
 import com.parkinglot.models.User;
 import com.parkinglot.services.TransactionService;
+import com.parkinglot.utils.AlertUtil;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,7 +58,7 @@ public class TransactionHistoryController implements UserAwareController {
                 transactionsTable.setItems(transactionList);
             } catch (SQLException e) {
                 e.printStackTrace();
-                // Handle SQL error
+                AlertUtil.showAlert(Alert.AlertType.ERROR, "Error", "Error while getting Transaction Details");
             }
         }
     }

@@ -11,7 +11,7 @@
             <TableColumn fx:id="idColumn" text="ID" />
             <TableColumn fx:id="userIdColumn" text="User ID" />
             <TableColumn fx:id="vehicleIdColumn" text="Vehicle ID" />
-            <TableColumn fx:id="slotIdColumn" text="Slot ID" />
+            <TableColumn fx:id="slotIdColumn" text="Slot Label" />
             <TableColumn fx:id="entryTimeColumn" text="Entry Time" />
             <TableColumn fx:id="exitTimeColumn" text="Exit Time" />
             <TableColumn fx:id="durationColumn" text="Duration (Minutes)" />

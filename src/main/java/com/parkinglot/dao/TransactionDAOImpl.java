@@ -69,4 +69,39 @@ public class TransactionDAOImpl implements TransactionDAO {
             preparedStatement.executeUpdate();
         }
     }
+
+    @Override
+    public boolean hasPendingTransaction(int userId, int vehicleId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Transactions WHERE user_id = ? AND vehicle_id = ? AND payment_status = 'Pending'";
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, vehicleId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error checking for pending transaction: " + e.getMessage(), e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean hasPendingTransactionForVehicle(int vehicleId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Transactions WHERE vehicle_id = ? AND payment_status = 'Pending'";
+        try (Connection connection = DatabaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, vehicleId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error checking for pending transaction for vehicle: " + e.getMessage(), e);
+        }
+        return false;
+    }
 }
