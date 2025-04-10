@@ -24,7 +24,7 @@
         <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Button text="Register" onAction="#registerAdmin" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Button text="Register" onAction="#registerAdmin" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+        <Button text="Back" onAction="#handleBackButton" GridPane.columnIndex="2" GridPane.rowIndex="9" />
     </GridPane>
-    <Button text="Back" onAction="#handleBackButton" />
 </VBox>

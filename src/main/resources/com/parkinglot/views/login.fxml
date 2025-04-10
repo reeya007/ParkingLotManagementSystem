@@ -15,7 +15,7 @@
         <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Button text="Login" onAction="#handleLogin" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button text="Login" onAction="#handleLogin" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Button text="Back" onAction="#handleBackButton" GridPane.columnIndex="2" GridPane.rowIndex="6" />
     </GridPane>
-    <Button text="Back" onAction="#handleBackButton" />
 </VBox>

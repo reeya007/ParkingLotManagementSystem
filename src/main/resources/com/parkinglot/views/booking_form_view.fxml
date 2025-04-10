@@ -19,7 +19,7 @@
         <ComboBox fx:id="bookingVehicleComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
         <Label text="Available Slots:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
         <ComboBox fx:id="availableSlotsComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-        <Button text="Book Slot" onAction="#handleBookSlot" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Button text="Book Slot" onAction="#handleBookSlot" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
+        <Button text="Back" onAction="#handleBackButton" GridPane.columnIndex="2" GridPane.rowIndex="8"/>
     </GridPane>
-    <Button text="Back" onAction="#handleBackButton"/>
 </VBox>

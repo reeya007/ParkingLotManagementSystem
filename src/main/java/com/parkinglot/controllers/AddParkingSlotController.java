@@ -18,6 +18,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for the "Add Parking Slot" screen.
+ * Handles user input for creating multiple parking slots in a grid layout.
+ */
 public class AddParkingSlotController {
 
     @FXML
@@ -33,6 +37,9 @@ public class AddParkingSlotController {
     private final VehicleTypeService vehicleTypeService = new VehicleTypeService();
     private List<VehicleType> vehicleTypesList; // To store VehicleType objects
 
+    /**
+     * Initializes the controller. Loads the available vehicle types into the combo box.
+     */
     @FXML
     public void initialize() {
         try {
@@ -47,6 +54,10 @@ public class AddParkingSlotController {
         }
     }
 
+    /**
+     * Handles the action when the "Add Parking Slots" button is clicked.
+     * Retrieves user input, validates it, and calls the ParkingSlotService to add the parking slots.
+     */
     @FXML
     public void handleAddParkingSlots() {
         String floorStr = floorField.getText();
@@ -88,16 +99,33 @@ public class AddParkingSlotController {
         }
     }
 
+    /**
+     * Handles the action when the "Back" button is clicked.
+     * Navigates the user back to the Super Admin Dashboard.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     * @throws IOException If there is an error loading the Super Admin Dashboard scene.
+     */
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
         String superAdminStylesheet = getClass().getResource("/com/parkinglot/styles/super_admin_dashboard.css").toExternalForm();
         SceneManager.loadScene("super_admin_dashboard.fxml", "Super Admin Dashboard", event, superAdminStylesheet);
     }
 
+    /**
+     * Displays an alert dialog with the specified type, title, and content.
+     *
+     * @param alertType The type of the alert (e.g., ERROR, INFORMATION).
+     * @param title The title of the alert dialog.
+     * @param content The message content of the alert dialog.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         AlertUtil.showAlert(alertType, title, content);
     }
 
+    /**
+     * Clears the input fields on the form.
+     */
     private void clearFields() {
         floorField.clear();
         rowsField.clear();

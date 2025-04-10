@@ -1,24 +1,22 @@
 package com.parkinglot.controllers;
 
+import com.parkinglot.models.User;
+import com.parkinglot.services.UserService;
 import com.parkinglot.utils.AlertUtil;
 import com.parkinglot.utils.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import com.parkinglot.utils.DatabaseUtil;
 
-import com.parkinglot.models.User;
-import com.parkinglot.services.UserService;
-
+/**
+ * Controller for the "Admin Registration" screen.
+ * Handles user input for registering new admin users.
+ */
 public class AdminRegistrationController {
 
     @FXML
@@ -38,6 +36,10 @@ public class AdminRegistrationController {
 
     private final UserService userService = new UserService();
 
+    /**
+     * Handles the action when the "Register Admin" button is clicked.
+     * Retrieves user input, validates it, and calls the UserService to register the new admin user.
+     */
     @FXML
     private void registerAdmin() {
         String name = nameField.getText();
@@ -51,28 +53,34 @@ public class AdminRegistrationController {
             return;
         }
 
-        User user = new User();
-        user.setName(name);
-        user.setAddress(address);
-        user.setPhoneNumber(phone);
-        user.setEmail(email);
-        user.setPasswordHash(hashPassword(password));
-        user.setRoleId(1); // 1 is the role_id for Admin
-
         try {
-            user = userService.registerUser(user);
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Admin registered successfully.");
-            clearFields();
+            User registeredUser = userService.registerAdmin(name, address, phone, email, password);
+            if (registeredUser != null) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Admin registered successfully.");
+                clearFields();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "Admin registration failed.");
+            }
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Registration failed: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
+    /**
+     * Displays an alert dialog with the specified type, title, and content.
+     *
+     * @param alertType The type of the alert (e.g., ERROR, INFORMATION).
+     * @param title The title of the alert dialog.
+     * @param content The message content of the alert dialog.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         AlertUtil.showAlert(alertType, title, content);
     }
 
+    /**
+     * Clears the input fields on the form.
+     */
     private void clearFields() {
         nameField.clear();
         addressField.clear();
@@ -81,29 +89,13 @@ public class AdminRegistrationController {
         passwordField.clear();
     }
 
-    private String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] encodedhash = digest.digest(password.getBytes());
-            return bytesToHex(encodedhash);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private String bytesToHex(byte[] hash) {
-        StringBuilder hexString = new StringBuilder(2 * hash.length);
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xff & hash[i]);
-            if (hex.length() == 1) {
-                hexString.append('0');
-            }
-            hexString.append(hex);
-        }
-        return hexString.toString();
-    }
-
+    /**
+     * Handles the action when the "Back" button is clicked.
+     * Navigates the user back to the Super Admin Dashboard.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     * @throws IOException If there is an error loading the Super Admin Dashboard scene.
+     */
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
         String superAdminStylesheet = getClass().getResource("/com/parkinglot/styles/super_admin_dashboard.css").toExternalForm();

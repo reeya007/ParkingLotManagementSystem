@@ -52,10 +52,4 @@ public class CustomerDashboardController implements UserAwareController {
         loadScene("welcome.fxml", "Parking Lot Management System", event, adminStylesheet);
     }
 
-    @FXML
-    public void handleBackButton(ActionEvent event) throws IOException {
-        String adminStylesheet= getClass().getResource("/com/parkinglot/styles/welcome.css").toExternalForm();
-        loadScene("welcome.fxml", "Parking Lot Management System", event, adminStylesheet);
-    }
-
 }

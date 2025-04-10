@@ -1,31 +1,41 @@
-/* welcome.css */
-
 VBox {
     -fx-alignment: center;
     -fx-spacing: 20px;
     -fx-padding: 20px;
-    -fx-background-color: #f0f8ff; /* Light Alice Blue background */
     -fx-background-image: url("../images/welcome-bg.png");
-    -fx-background-size: cover;       /* This will stretch to cover the VBox */
-
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
 }
 
 Label {
-    -fx-font-size: 18px;
+    -fx-font-size: 30px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333; /* Dark gray text */
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI", "Roboto Thin", sans-serif;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0.5, 2, 2);
+    -fx-padding: 10px;
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-background-radius: 10;
 }
 
 Button {
-    -fx-background-color: #4682b4; /* Steel Blue button color */
+    -fx-background-color: rgba(70, 130, 180, 0.85); /* semi-transparent steel blue */
     -fx-text-fill: white;
     -fx-padding: 10px 20px;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-background-radius: 5px;
+    -fx-background-radius: 8px;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0.4, 1, 1);
+    -fx-border-color: white;
+    -fx-border-width: 1px;
 }
 
 Button:hover {
-    -fx-background-color: #2e638b; /* Darker Steel Blue on hover */
+    -fx-background-color: rgba(46, 99, 139, 0.95);
+    -fx-translate-y: -2px;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0.5, 2, 2);
 }

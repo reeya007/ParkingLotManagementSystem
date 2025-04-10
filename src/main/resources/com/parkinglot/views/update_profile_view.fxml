@@ -21,7 +21,7 @@
         <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <Label text="Phone:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
         <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-        <Button text="Update Profile" onAction="#handleUpdateProfile" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Button text="Update Profile" onAction="#handleUpdateProfile" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+        <Button text="Back" onAction="#handleBackButton" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
     </GridPane>
-    <Button text="Back" onAction="#handleBackButton"/>
 </VBox>

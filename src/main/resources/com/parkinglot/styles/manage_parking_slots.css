@@ -1,10 +1,12 @@
-/* manage_parking_slots.css */
-
 VBox {
     -fx-alignment: center;
     -fx-spacing: 10px;
     -fx-padding: 20px;
-    -fx-background-color: #f0f8ff; /* Light Alice Blue background */
+    -fx-background-image: url("../images/welcome-bg.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: rgba(255, 255, 255, 0.6); /* Light fade effect */
 }
 
 TableView {
@@ -41,15 +43,22 @@ HBox {
 }
 
 Button {
-    -fx-background-color: #4682b4; /* Steel Blue button color */
+    -fx-background-color: rgba(70, 130, 180, 0.85); /* Steel Blue with slight opacity */
     -fx-text-fill: white;
     -fx-padding: 10px 20px;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-background-radius: 5px;
+    -fx-background-radius: 10px;
     -fx-cursor: hand;
+    -fx-font-family: "Roboto";
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.3, 0, 2);
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1px;
 }
 
 Button:hover {
-    -fx-background-color: #2e638b; /* Darker Steel Blue on hover */
+    -fx-background-color: rgba(46, 99, 139, 0.9);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+    -fx-transition: all 0.2s ease-in-out;
 }

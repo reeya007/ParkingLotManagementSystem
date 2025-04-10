@@ -1,13 +1,6 @@
 package com.parkinglot.controllers;
 
-import com.parkinglot.models.ParkingSlot;
-import com.parkinglot.models.Transaction;
-import com.parkinglot.models.User;
-import com.parkinglot.models.Vehicle;
-import com.parkinglot.services.ParkingSlotService;
-import com.parkinglot.services.TransactionService;
-import com.parkinglot.services.UserService;
-import com.parkinglot.services.VehicleService;
+import com.parkinglot.services.VehicleEntryAndExitService;
 import com.parkinglot.utils.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,87 +9,61 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.List;
 
 import static com.parkinglot.utils.SceneManager.loadScene;
 
+/**
+ * Controller for the "Vehicle Entry" screen.
+ * Handles the process of recording a vehicle entering the parking lot.
+ */
 public class VehicleEntryController {
 
     @FXML
     private TextField licensePlateField;
 
-    private final VehicleService vehicleService = new VehicleService();
-    private final ParkingSlotService parkingSlotService = new ParkingSlotService();
-    private final TransactionService transactionService = new TransactionService();
-    private final UserService userService = new UserService();
+    private final VehicleEntryAndExitService vehicleEntryService = new VehicleEntryAndExitService();
 
+    /**
+     * Handles the action when a vehicle attempts to enter the parking lot.
+     * Retrieves the license plate from the input, delegates the entry logic to the VehicleEntryService,
+     * and updates the UI based on the outcome.
+     */
     @FXML
     public void handleVehicleEntry() {
         String licensePlate = licensePlateField.getText();
 
         try {
-            Vehicle vehicle = vehicleService.getVehicleByLicensePlate(licensePlate);
-            if (vehicle == null) {
-                showAlert(Alert.AlertType.ERROR, "Error", "Vehicle not found.");
-                return;
-            }
-
-            // Check if there's already a pending transaction for this vehicle
-            boolean hasPendingEntry = transactionService.hasPendingTransactionForVehicle(vehicle.getId());
-            if (hasPendingEntry) {
-                showAlert(Alert.AlertType.WARNING, "Warning", "This vehicle already has a pending entry.");
-                licensePlateField.clear();
-                return; // Do nothing if there's a pending entry
-            }
-
-            List<ParkingSlot> availableSlots = parkingSlotService.getAllParkingSlots().stream()
-                    .filter(ParkingSlot::isIsAvailable)
-                    .filter(slot -> slot.getAllowedVehicleTypeId() == vehicle.getVehicleTypeId())
-                    .toList();
-
-            if (availableSlots.isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, "Error", "No available parking slots for this vehicle type.");
-                return;
-            }
-
-            ParkingSlot assignedSlot = availableSlots.getFirst();
-            assignedSlot.setAvailable(false);
-            parkingSlotService.updateParkingSlot(assignedSlot);
-
-            Transaction transaction = new Transaction();
-            transaction.setUserId(vehicle.getUserId());
-            transaction.setVehicleId(vehicle.getId());
-            transaction.setParkingSlotId(assignedSlot.getId());
-            transaction.setEntryTime(new Timestamp(System.currentTimeMillis()));
-            transaction.setPaymentStatus("Pending");
-
-            transactionService.addTransaction(transaction);
-
-            // Update the user's assignedSlotId
-            User user = userService.getUserById(vehicle.getUserId());
-            if (user != null) {
-                user.setAssignedSlotId(assignedSlot.getId());
-                userService.updateUser(user);
-            }
-
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Vehicle entered successfully. Assigned slot: " + assignedSlot.getLabel());
+            vehicleEntryService.processVehicleEntry(licensePlate);
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Vehicle entered successfully.");
             licensePlateField.clear();
-
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Vehicle entry failed: " + e.getMessage());
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            showAlert(Alert.AlertType.WARNING, "Warning", e.getMessage());
+            licensePlateField.clear();
         }
     }
 
+    /**
+     * Handles the action when the "Back" button is clicked.
+     * Navigates the user back to the Admin Dashboard.
+     * @param event The ActionEvent triggered by the button click.
+     * @throws IOException If there is an error loading the Admin Dashboard scene.
+     */
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
         String adminStylesheet= getClass().getResource("/com/parkinglot/styles/admin_dashboard.css").toExternalForm();
         loadScene("admin_dashboard.fxml", "Admin Dashboard", event, adminStylesheet);
     }
 
+    /**
+     * Displays an alert dialog with the specified type, title, and content.
+     * @param alertType The type of the alert (e.g., ERROR, INFORMATION).
+     * @param title The title of the alert dialog.
+     * @param content The message content of the alert dialog.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         AlertUtil.showAlert(alertType, title, content);
     }
-
 }

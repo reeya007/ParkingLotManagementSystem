@@ -1,102 +1,68 @@
 package com.parkinglot.controllers;
 
-import com.parkinglot.models.ParkingSlot;
-import com.parkinglot.models.Transaction;
-import com.parkinglot.models.Vehicle;
-import com.parkinglot.models.VehicleType;
-import com.parkinglot.services.ParkingSlotService;
-import com.parkinglot.services.TransactionService;
-import com.parkinglot.services.VehicleService;
-import com.parkinglot.services.VehicleTypeService;
+import com.parkinglot.services.VehicleEntryAndExitService;
 import com.parkinglot.utils.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.Duration;
-import java.util.List;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 import static com.parkinglot.utils.SceneManager.loadScene;
 
+/**
+ * Controller for the "Vehicle Exit" screen.
+ * Handles the process of recording a vehicle exiting the parking lot.
+ */
 public class VehicleExitController {
 
     @FXML
     private TextField licensePlateField;
 
-    private final VehicleService vehicleService = new VehicleService();
-    private final ParkingSlotService parkingSlotService = new ParkingSlotService();
-    private final TransactionService transactionService = new TransactionService();
+    private final VehicleEntryAndExitService parkingTransactionService = new VehicleEntryAndExitService();
 
+    /**
+     * Handles the action when a vehicle attempts to exit the parking lot.
+     * Retrieves the license plate from the input, delegates the exit logic to the ParkingTransactionService,
+     * and updates the UI based on the outcome.
+     */
     @FXML
     public void handleVehicleExit() {
         String licensePlate = licensePlateField.getText();
 
         try {
-            Vehicle vehicle = vehicleService.getVehicleByLicensePlate(licensePlate);
-            if (vehicle == null) {
-                showAlert(Alert.AlertType.ERROR, "Error", "Vehicle not found.");
-                return;
-            }
-
-            List<Transaction> activeTransactions = transactionService.getAllTransactions().stream()
-                    .filter(t -> t.getVehicleId() == vehicle.getId())
-                    .filter(t -> t.getExitTime() == null)
-                    .toList();
-
-            if (activeTransactions.isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, "Error", "No active transactions found for this vehicle.");
-                return;
-            }
-
-            Transaction transaction = activeTransactions.getFirst();
-            ParkingSlot assignedSlot = parkingSlotService.getParkingSlotById(transaction.getParkingSlotId());
-            assignedSlot.setAvailable(true);
-            parkingSlotService.updateParkingSlot(assignedSlot);
-
-            Timestamp exitTime = new Timestamp(System.currentTimeMillis());
-            transaction.setExitTime(exitTime);
-
-            LocalDateTime entryDateTime = transaction.getEntryTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            LocalDateTime exitDateTime = exitTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            Duration duration = Duration.between(entryDateTime, exitDateTime);
-            int durationMinutes = (int) duration.toMinutes();
-            transaction.setDurationMinutes(durationMinutes);
-
-            double amount = transactionService.calculateParkingFee(durationMinutes, vehicle.getVehicleTypeId());
-            transaction.setAmount(amount);
-            transaction.setPaymentStatus("Completed");
-
-            transactionService.updateTransaction(transaction);
-
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Vehicle exited successfully. Total amount: $" + amount);
+            double parkingFee = parkingTransactionService.processVehicleExit(licensePlate);
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Vehicle exited successfully. Total amount: $" + parkingFee);
             licensePlateField.clear();
-
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Vehicle exit failed: " + e.getMessage());
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
     }
 
-
-
+    /**
+     * Handles the action when the "Back" button is clicked.
+     * Navigates the user back to the Admin Dashboard.
+     * @param event The ActionEvent triggered by the button click.
+     * @throws IOException If there is an error loading the Admin Dashboard scene.
+     */
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
         String adminStylesheet= getClass().getResource("/com/parkinglot/styles/admin_dashboard.css").toExternalForm();
         loadScene("admin_dashboard.fxml", "Admin Dashboard", event, adminStylesheet);
     }
 
+    /**
+     * Displays an alert dialog with the specified type, title, and content.
+     * @param alertType The type of the alert (e.g., ERROR, INFORMATION).
+     * @param title The title of the alert dialog.
+     * @param content The message content of the alert dialog.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         AlertUtil.showAlert(alertType, title, content);
     }
-
 }

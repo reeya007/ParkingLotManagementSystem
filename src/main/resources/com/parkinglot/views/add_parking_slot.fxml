@@ -26,7 +26,7 @@
         <Label text="Vehicle Type:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <ComboBox fx:id="vehicleTypeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Button text="Add Slots" onAction="#handleAddParkingSlots" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Button text="Add Slots" onAction="#handleAddParkingSlots" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <Button text="Back" onAction="#handleBackButton"  GridPane.columnIndex="2" GridPane.rowIndex="8" />
     </GridPane>
-    <Button text="Back" onAction="#handleBackButton" />
 </VBox>

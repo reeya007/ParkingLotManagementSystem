@@ -31,6 +31,8 @@
         <Label text="Vehicle Type:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <ComboBox fx:id="vehicleTypeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-        <Button text="Register" onAction="#registerCustomer" GridPane.columnIndex="1" GridPane.rowIndex="7" /> </GridPane>
-    <Button text="Back" onAction="#handleBackButton" />
+        <Button text="Register" onAction="#registerCustomer" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+        <Button text="Back" onAction="#handleBackButton" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+    </GridPane>
+
 </VBox>

@@ -1,10 +1,12 @@
-/* login.css */
-
 VBox {
     -fx-alignment: center;
     -fx-spacing: 20px;
     -fx-padding: 20px;
-    -fx-background-color: #f0f8ff; /* Light Alice Blue background */
+    -fx-background-image: url("../images/welcome-bg.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: rgba(255, 255, 255, 0.6); /* fallback for fade */
 }
 
 GridPane {
@@ -12,36 +14,51 @@ GridPane {
     -fx-hgap: 10px;
     -fx-vgap: 10px;
     -fx-padding: 10px;
+    -fx-background-color: rgba(255, 255, 255, 0.4); /* glass effect */
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.2, 0, 2);
 }
 
 Label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #333; /* Dark gray text */
+    -fx-font-size: 16px;
+    -fx-text-fill: #000000;
+    -fx-font-family: "Roboto Thin";
 }
 
 TextField, PasswordField {
-    -fx-background-color: white;
+    -fx-background-color: rgba(255, 255, 255, 0.8);
     -fx-border-color: #ccc;
     -fx-border-width: 1px;
     -fx-padding: 8px;
-    -fx-background-radius: 3px;
+    -fx-background-radius: 5px;
     -fx-pref-width: 250px;
+    -fx-font-family: "Roboto";
 }
 
 TextField:focused, PasswordField:focused {
-    -fx-border-color: #4682b4; /* Steel Blue border on focus */
+    -fx-border-color: #4682b4;
+    -fx-effect: dropshadow(three-pass-box, rgba(70,130,180,0.3), 6, 0, 0, 2);
 }
 
 Button {
-    -fx-background-color: #4682b4; /* Steel Blue button color */
+    -fx-background-color: rgba(70, 130, 180, 0.8);
     -fx-text-fill: white;
     -fx-padding: 10px 20px;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-background-radius: 5px;
+    -fx-background-radius: 10px;
     -fx-cursor: hand;
+    -fx-font-family: "Roboto";
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0.3, 0, 2);
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
 }
 
 Button:hover {
-    -fx-background-color: #2e638b; /* Darker Steel Blue on hover */
+    -fx-background-color: rgba(46, 99, 139, 0.85);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+    -fx-transition: all 0.2s ease-in-out;
 }
