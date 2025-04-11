@@ -80,13 +80,21 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void updateUser(User user) throws SQLException {
-        String sql = "UPDATE Users SET name = ?, address = ?, phone_number = ? WHERE id = ?";
+        String sql = "UPDATE Users SET name = ?, address = ?, phone_number = ?, assigned_slot_id = ? WHERE id = ?";
         try (Connection connection = DatabaseUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getAddress());
             preparedStatement.setString(3, user.getPhoneNumber());
-            preparedStatement.setInt(4, user.getId());
+
+            Integer assignedSlotId = user.getAssignedSlotId();
+            if (assignedSlotId != null) {
+                preparedStatement.setInt(4, assignedSlotId);
+            } else {
+                preparedStatement.setNull(4, java.sql.Types.INTEGER);
+            }
+
+            preparedStatement.setInt(5, user.getId());
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
